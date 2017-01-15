@@ -9,10 +9,29 @@ angular.module('app').factory('dataManager', function () {
 		}
 	}
 
+	var keyTableID = 'noteKeys';
+
+	function getKeysTable() {
+		return dataProvider.getItem(keyTableID);
+	}
+
+	function getNextKey() {
+		var keysTable = getKeysTable(), lastNoteKey, nextNoteKey;
+		if (keysTable) {
+			lastNoteKey = keysTable[keysTable.length - 1];
+			nextNoteKey = parseInt(lastNoteKey.split('_')[1]) + 1;
+		} else {
+			nextNoteKey = 'note_' + 0;
+		}
+
+		return nextNoteKey;
+	}
+
 	return {
-		setNote: function (key, value) {
+		setNote: function (value) {
 			checkProvider();
 			try {
+				var key = getNextKey();
 				dataProvider.set(key, value);
 				return true;
 			} catch(e) {
@@ -22,17 +41,40 @@ angular.module('app').factory('dataManager', function () {
 		getNote: function (key) {
 			checkProvider();
 			try {
-				dataProvider.get(key, value);
+				dataProvider.get(key);
 				return true;
 			} catch(e) {
 				return false;
 			}
 		},
-		getListNode: function () {
+		editNote: function (key, value) {
 			checkProvider();
 			try {
-				dataProvider.getList(key, value);
+				dataProvider.set(key, value);
 				return true;
+			} catch(e) {
+				return false;
+			}
+		},
+		removeNote: function (key) {
+			checkProvider();
+			try {
+				dataProvider.remove(key);
+				return true;
+			} catch(e) {
+				return false;
+			}
+		},
+		getNoteList: function () {
+			checkProvider();
+			try {
+				var keysTable = getKeysTable(), noteTable = [], actualNote;
+				for (var keyID = 0; keyID < keysTable.length; i++) {
+					actualNote = dataProvider.getItem(keysTable[keyID]);
+					noteTable.push(actualNote);
+				}
+
+				return noteTable;
 			} catch(e) {
 				return false;
 			}

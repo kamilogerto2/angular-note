@@ -2,24 +2,6 @@
  * Created by Kamil on 2017-01-15.
  */
 angular.module('app').factory('sessionStorageProvider', function () {
-	var keyTableID = 'noteKeys';
-
-	function getKeysTable() {
-		return sessionStorage.getItem(keyTableID);
-	}
-
-	function getNextKey() {
-		var keysTable = getKeysTable(), lastNoteKey, nextNoteKey;
-		if (keysTable) {
-			lastNoteKey = keysTable[keysTable.length - 1];
-			nextNoteKey = parseInt(lastNoteKey.split('_')[1]) + 1;
-		} else {
-			nextNoteKey = 'note_' + 0;
-		}
-
-		return nextNoteKey;
-	}
-
 	return {
 		/**
 		 *
@@ -58,19 +40,6 @@ angular.module('app').factory('sessionStorageProvider', function () {
 		 */
 		edit: function (key, value) {
 			sessionStorage.setItem(key, value);
-		},
-		/**
-		 *
-		 * @returns {Array} list of all notes
-		 */
-		getList: function () {
-			var keysTable = getKeysTable(), noteTable = [], actualNote;
-			for (var keyID = 0; keyID < keysTable.length; i++) {
-				actualNote = sessionStorage.getItem(keysTable[keyID]);
-				noteTable.push(actualNote);
-			}
-
-			return noteTable;
 		},
 		/**
 		 * clear all data
