@@ -8,10 +8,8 @@ angular.module('app').factory('sessionStorageProvider', function () {
 		 * @param value - value which will be insterted to localStorage
 		 * @returns new key for note
 		 */
-		set: function (value) {
-			var key = getNextKey();
+		set: function (key, value) {
 			sessionStorage.setItem(key, value);
-			return key;
 		},
 		/**
 		 *

@@ -1,7 +1,7 @@
 /**
  * Created by Kamil on 2017-01-15.
  */
-describe('Data manager', function () {
+xdescribe('Data manager', function () {
 	beforeEach(module('app', function (dataManger) {
 		this.dataManager = new dataManger;
 	}));
