@@ -47,6 +47,6 @@ describe('Data manager', function () {
 	}));
 
 	it('should throw exception that sessionStorage is full', function () {
-
+		//todo
 	})
 });

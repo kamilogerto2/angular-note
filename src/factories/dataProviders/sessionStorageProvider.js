@@ -20,20 +20,15 @@ angular.module('app').factory('sessionStorageProvider', function () {
 			return sessionStorage.getItem(key);
 		},
 		/**
-		 * remove element from localStorage
+		 * remove element from sessionStorage
 		 * @param key
 		 */
 		remove: function (key) {
-			var keysTable = getKeysTable(), keyIndex;
 			sessionStorage.removeItem(key);
-			keyIndex = keysTable.indexOf(key);
-			if (keyIndex > -1) {
-				keysTable.splice(keyIndex, 1);
-			}
 		},
 		/**
 		 *
-		 * @param key - key for note in localStorage
+		 * @param key - key for note in sessionStorage
 		 * @param value - new value for note
 		 */
 		edit: function (key, value) {
