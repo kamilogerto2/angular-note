@@ -1,0 +1,12 @@
+<div class="note" ng-init="edit=false">
+	<div class="note__content">
+		<textarea class="note__textarea" ng-class="{'note__textarea-editable': edit}" ng-readonly="!edit">{{$ctrl.content}}</textarea>
+	</div>
+	<div class="note__images">
+		<img ng-repeat="imageUrl in $ctrl.images" ng-src="{{imageUrl}}">
+	</div>
+	<div class="note__actions">
+		<a class="button button--color-blue" ng-click="edit=!edit">{{edit ? 'Save' : 'Edit'}}</a>
+		<a class="button button--color-red" href="#">Remove</a>
+	</div>
+</div>

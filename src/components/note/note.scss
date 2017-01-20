@@ -1,0 +1,66 @@
+.note {
+	margin: 1em;
+	width: 350px;
+	height: 350px;
+	background-image: url('./images/bg.jpg');
+	background-size: cover;
+
+	&__content {
+		text-align: center;
+	}
+
+	&__textarea {
+		width: 80%;
+		height: 160px;
+		margin-top: 3.5em;
+		background: transparent;
+		outline: none;
+		border: none;
+		resize: none;
+		transition: background-color 0.5s ease-in;
+
+		&-editable {
+			background: rgba(255, 255, 255, 0.5);
+		}
+	}
+
+
+	&__actions {
+		width: 86%;
+		margin: 0 auto;
+		text-align: right;
+	}
+
+	&__images {
+		width: 90%;
+		margin: 0 auto;
+		height: 50px;
+	}
+}
+
+.button {
+	width: 100px;
+	text-align: center;
+	display: inline-block;
+	padding: 0.5em 0;
+	border-radius: 2px;
+	text-decoration: none;
+	color: white;
+	transition: background-color 0.5s ease-in;
+
+	&--color-blue {
+		background-color: #2b90d9;
+
+		&:hover {
+			background-color: #2caeff;
+		}
+	}
+
+	&--color-red {
+		background-color: #F32C52;
+
+		&:hover {
+			background-color: #ff6056;
+		}
+	}
+}
