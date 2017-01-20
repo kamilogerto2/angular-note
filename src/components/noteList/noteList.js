@@ -3,11 +3,18 @@
  */
 angular
 	.module('app')
-	.component('note', {
-		templateUrl: 'components/note/note.html',
-		controller: NoteListController
+	.component('noteList', {
+		templateUrl: 'components/noteList/noteList.html',
+		controller: ['dataManager', NoteListController]
 	});
 
-function NoteListController() {
-	
+function NoteListController(dataManger) {
+	dataManger.configure('sessionStorageProvider');
+	this.notes = [{
+		content: 'Magic notes',
+		id: 'note_0'
+	},{
+		content: 'Magic notes',
+		id: 'note_0'
+	}];
 }

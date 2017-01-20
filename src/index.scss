@@ -1,6 +1,14 @@
 @import "components/note/note";
+@import "components/noteList/noteList";
 
 body, textarea {
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-size: 18px;
+}
+
+.container {
+	width: 80%;
+	max-width: 1280px;
+	margin: 0 auto;
+	background-color: #e2e2e2;
 }
