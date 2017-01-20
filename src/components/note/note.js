@@ -9,6 +9,7 @@ angular
 			content: '@',
 			images: '=',
 			newNote: '<',
+			id: '<',
 			placeholder: '@'
 		},
 		controller: ['dataManager', '$scope', NoteController]
@@ -18,10 +19,13 @@ function NoteController(dataManger, $scope) {
 	this.edit = false;
 
 	this.editNote = function () {
-		if(this.newNote || this.edit) {
+		if(this.newNote) {
 			dataManger.setNote(this.textarea);
 			$scope.$emit('note changed');
 		} else {
+			if(this.edit) {
+				dataManger.editNote(this.id, this.textarea);
+			}
 			this.edit = !this.edit;
 		}
 	};
