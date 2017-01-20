@@ -7,6 +7,26 @@ angular
 		templateUrl: 'components/note/note.html',
 		bindings: {
 			content: '@',
-			images: '='
-		}
+			images: '=',
+			newNote: '<',
+			placeholder: '@'
+		},
+		controller: ['dataManager', '$scope', NoteController]
 	});
+
+function NoteController(dataManger, $scope) {
+	this.edit = false;
+
+	this.editNote = function () {
+		if(this.newNote || this.edit) {
+			dataManger.setNote(this.textarea);
+			$scope.$emit('note changed');
+		} else {
+			this.edit = !this.edit;
+		}
+	};
+
+	this.$onInit = function () {
+		this.textarea = this.content;
+	}
+}

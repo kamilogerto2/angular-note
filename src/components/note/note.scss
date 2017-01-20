@@ -6,6 +6,10 @@
 	background-size: cover;
 	display: inline-block;
 
+	&--new {
+
+	}
+
 	&__content {
 		text-align: center;
 	}
@@ -62,6 +66,14 @@
 
 		&:hover {
 			background-color: #ff6056;
+		}
+	}
+
+	&--color-green {
+		background-color: #2aff52;
+
+		&:hover {
+			background-color: #27ff88;
 		}
 	}
 }

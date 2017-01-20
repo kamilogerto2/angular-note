@@ -5,16 +5,16 @@ angular
 	.module('app')
 	.component('noteList', {
 		templateUrl: 'components/noteList/noteList.html',
-		controller: ['dataManager', NoteListController]
+		controller: ['dataManager', '$scope', NoteListController]
 	});
 
-function NoteListController(dataManger) {
+function NoteListController(dataManger, $scope) {
+	var ctrl = this;
 	dataManger.configure('sessionStorageProvider');
-	this.notes = [{
-		content: 'Magic notes',
-		id: 'note_0'
-	},{
-		content: 'Magic notes',
-		id: 'note_0'
-	}];
+	ctrl.notes = dataManger.getNoteList();
+	console.log(ctrl.notes);
+
+	$scope.$on('note changed', function () {
+		ctrl.notes = dataManger.getNoteList();
+	});
 }

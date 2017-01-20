@@ -1,3 +1,4 @@
 <div class="list">
-	<note ng-repeat="note in $ctrl.notes" content="{{note.content}}" id="note.id" images="note.images"></note>
+	<note  class="note" ng-repeat="note in $ctrl.notes" content="{{note.value}}" id="note.key" images="note.images"></note>
+	<note  class="note" placeholder="To add new note - click here and start typing..." new-note="true"></note>
 </div>
