@@ -7,6 +7,6 @@
 	</div>
 	<div class="note__actions">
 		<a class="button button--color-blue" ng-click="$ctrl.editNote()" ng-class="{'button--color-green':($ctrl.newNote || $ctrl.edit)}">{{$ctrl.newNote || $ctrl.edit ? 'Save' : 'Edit'}}</a>
-		<a ng-hide="$ctrl.newNote" class="button button--color-red" href="#">Remove</a>
+		<a ng-hide="$ctrl.newNote" ng-click="$ctrl.removeNote()" class="button button--color-red" href="#">Remove</a>
 	</div>
 </div>

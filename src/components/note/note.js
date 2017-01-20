@@ -30,6 +30,11 @@ function NoteController(dataManger, $scope) {
 		}
 	};
 
+	this.removeNote = function () {
+		dataManger.removeNote(this.id);
+		$scope.$emit('note changed');
+	};
+
 	this.$onInit = function () {
 		this.textarea = this.content;
 	}
