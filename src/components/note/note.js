@@ -12,19 +12,35 @@ angular
 			id: '<',
 			placeholder: '@'
 		},
-		controller: ['dataManager', '$scope', NoteController]
+		controller: ['dataManager', '$scope', 'urlDetector', NoteController]
 	});
 
-function NoteController(dataManger, $scope) {
+function NoteController(dataManger, $scope, urlDetector) {
+	var ctrl = this;
 	this.edit = false;
 
+	function detectImages() {
+		console.log(ctrl.textarea);
+		if (ctrl.textarea) {
+			ctrl.images = urlDetector.detectImagePath(ctrl.textarea);
+			//for tests
+			for (var i = 0; i < ctrl.images.length; i++) {
+				console.log('image' + i);
+				ctrl.images[i] = './images/surfing.png';
+			}
+		}
+	}
+
 	this.editNote = function () {
-		if(this.newNote) {
+		if (this.newNote) {
 			dataManger.setNote(this.textarea);
+			this.textarea = null;
+			this.edit = false;
 			$scope.$emit('note changed');
 		} else {
-			if(this.edit) {
+			if (this.edit) {
 				dataManger.editNote(this.id, this.textarea);
+				detectImages();
 			}
 			this.edit = !this.edit;
 		}
@@ -37,5 +53,6 @@ function NoteController(dataManger, $scope) {
 
 	this.$onInit = function () {
 		this.textarea = this.content;
+		detectImages();
 	}
 }
