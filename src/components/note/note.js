@@ -31,8 +31,8 @@ function NoteController(dataManger, $scope, urlDetector) {
 		}
 	}
 
-	ctrl.editNote = function () {
-		if (ctrl.newNote) {
+	ctrl.editNote = function (saveOnly) {
+		if (ctrl.newNote && ctrl.textarea) {
 			dataManger.setNote(ctrl.textarea);
 			ctrl.textarea = null;
 			ctrl.edit = false;

@@ -1,6 +1,6 @@
 <div>
 	<div class="note__content">
-		<textarea ng-keypress="$ctrl.onEnter($event)" ng-model="$ctrl.textarea" class="note__textarea" ng-click="$ctrl.edit=true" ng-class="{'note__textarea-editable': $ctrl.edit}" ng-readonly="!$ctrl.edit" placeholder="{{$ctrl.placeholder}}"></textarea>
+		<textarea ng-blur="$ctrl.editNote(true)" ng-keypress="$ctrl.onEnter($event)" ng-model="$ctrl.textarea" class="note__textarea" ng-click="$ctrl.edit=true" ng-class="{'note__textarea-editable': $ctrl.edit}" ng-readonly="!$ctrl.edit" placeholder="{{$ctrl.placeholder}}"></textarea>
 	</div>
 	<div class="note__images">
 		<img ng-repeat="imageUrl in $ctrl.images track by $index" ng-src="{{imageUrl}}">
