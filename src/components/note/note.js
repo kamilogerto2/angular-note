@@ -17,42 +17,49 @@ angular
 
 function NoteController(dataManger, $scope, urlDetector) {
 	var ctrl = this;
-	this.edit = false;
+	ctrl.edit = false;
 
 	function detectImages() {
 		console.log(ctrl.textarea);
 		if (ctrl.textarea) {
 			ctrl.images = urlDetector.detectImagePath(ctrl.textarea);
-			//for tests
+			/*//for tests
 			for (var i = 0; i < ctrl.images.length; i++) {
 				console.log('image' + i);
 				ctrl.images[i] = './images/surfing.png';
-			}
+			}*/
 		}
 	}
 
-	this.editNote = function () {
-		if (this.newNote) {
-			dataManger.setNote(this.textarea);
-			this.textarea = null;
-			this.edit = false;
+	ctrl.editNote = function () {
+		if (ctrl.newNote) {
+			dataManger.setNote(ctrl.textarea);
+			ctrl.textarea = null;
+			ctrl.edit = false;
 			$scope.$emit('note changed');
 		} else {
-			if (this.edit) {
-				dataManger.editNote(this.id, this.textarea);
+			if (ctrl.edit) {
+				dataManger.editNote(ctrl.id, ctrl.textarea);
 				detectImages();
 			}
-			this.edit = !this.edit;
+
+			ctrl.edit = !ctrl.edit;
 		}
 	};
 
-	this.removeNote = function () {
-		dataManger.removeNote(this.id);
+	ctrl.onEnter = function (keyEvent) {
+		if (keyEvent.which === 13) {
+			ctrl.editNote();
+		}
+	};
+
+	ctrl.removeNote = function () {
+		dataManger.removeNote(ctrl.id);
 		$scope.$emit('note changed');
 	};
 
-	this.$onInit = function () {
-		this.textarea = this.content;
+	ctrl.$onInit = function () {
+		ctrl.textarea = ctrl.content;
 		detectImages();
 	}
 }

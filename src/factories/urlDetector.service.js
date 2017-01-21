@@ -7,6 +7,7 @@ angular.module('app').service('urlDetector', function () {
 		var regex = new RegExp(imageExpression);
 		return path.match(regex) || false;
 	}
+
 	this.detect = function (text) {
 		var urlExpression = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
 		var regex = new RegExp(urlExpression);
@@ -15,10 +16,12 @@ angular.module('app').service('urlDetector', function () {
 
 	this.detectImagePath = function (text) {
 		var urlInText = this.detect(text), imageTable = [], newPath, urlPath;
-		for (var i = 0; i < urlInText.length; i++) {
-			if (urlPath = determineImageInURL(urlInText[i])) {
-				newPath = urlInText[i].split(urlPath[0]);
-				imageTable.push(newPath[0] + urlPath[0]);
+		if (urlInText) {
+			for (var i = 0; i < urlInText.length; i++) {
+				if (urlPath = determineImageInURL(urlInText[i])) {
+					newPath = urlInText[i].split(urlPath[0]);
+					imageTable.push(newPath[0] + urlPath[0]);
+				}
 			}
 		}
 
