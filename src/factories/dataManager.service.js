@@ -35,7 +35,7 @@ angular.module('app').service('dataManager', function ($injector) {
 		var keysTable = getKeysTable();
 		var lastNoteKey;
 		var nextNoteKey;
-		if (keysTable) {
+		if (keysTable && keysTable.length) {
 			lastNoteKey = keysTable[keysTable.length - 1];
 			nextNoteKey = 'note_' + (parseInt(lastNoteKey.split('_')[1], 10) + 1);
 		} else {
