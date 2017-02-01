@@ -4,6 +4,9 @@
 angular.module('app').service('dataManager', function ($injector) {
 	var dataProvider;
 
+	/**
+	 * Check if provider is connected
+	 */
 	function checkProvider() {
 		if (!dataProvider) {
 			throw new Error('data provider is not initialized');
@@ -12,6 +15,10 @@ angular.module('app').service('dataManager', function ($injector) {
 
 	var keyTableID = 'noteKeys';
 
+	/**
+	 * Get available notes keys;
+	 * @returns {Array} keys for notes
+	 */
 	function getKeysTable() {
 		var rawTable = dataProvider.get(keyTableID);
 		if (rawTable) {
@@ -20,6 +27,10 @@ angular.module('app').service('dataManager', function ($injector) {
 		return false;
 	}
 
+	/**
+	 * Get key for next note.
+	 * @returns string key
+	 */
 	function getNextKey() {
 		var keysTable = getKeysTable();
 		var lastNoteKey;
@@ -33,6 +44,10 @@ angular.module('app').service('dataManager', function ($injector) {
 		return nextNoteKey;
 	}
 
+	/**
+	 * Add key to table for created note.
+	 * @param key
+	 */
 	function addKeyToKeysTable(key) {
 		var keysTable = getKeysTable();
 		var processedKeysTable = [];
@@ -45,6 +60,10 @@ angular.module('app').service('dataManager', function ($injector) {
 		}
 	}
 
+	/**
+	 * Remove key for deleted note.
+	 * @param key
+	 */
 	function removeItemFromKeysTable(key) {
 		var keysTable = getKeysTable();
 		var keyIndex = keysTable.indexOf(key);
@@ -54,6 +73,11 @@ angular.module('app').service('dataManager', function ($injector) {
 		dataProvider.set(keyTableID, angular.toJson(keysTable));
 	}
 
+	/**
+	 * insert new note
+	 * @param value - note content
+	 * @returns {string} key
+	 */
 	this.setNote = function (value) {
 		checkProvider();
 		try {
@@ -66,6 +90,11 @@ angular.module('app').service('dataManager', function ($injector) {
 		}
 	};
 
+	/**
+	 * Get note determined by key.
+	 * @param key
+	 * @returns {string} note content
+	 */
 	this.getNote = function (key) {
 		checkProvider();
 		try {
@@ -79,6 +108,12 @@ angular.module('app').service('dataManager', function ($injector) {
 		}
 	};
 
+	/**
+	 * Edit note content
+	 * @param key
+	 * @param value
+	 * @returns {boolean}
+	 */
 	this.editNote = function (key, value) {
 		checkProvider();
 		try {
@@ -89,6 +124,11 @@ angular.module('app').service('dataManager', function ($injector) {
 		}
 	};
 
+	/**
+	 * Remove note.
+	 * @param key
+	 * @returns {boolean}
+	 */
 	this.removeNote = function (key) {
 		checkProvider();
 		try {
@@ -100,6 +140,10 @@ angular.module('app').service('dataManager', function ($injector) {
 		}
 	};
 
+	/**
+	 * Get list of all notes.
+	 * @returns {*}
+	 */
 	this.getNoteList = function () {
 		checkProvider();
 		try {
