@@ -1,9 +1,22 @@
 .list {
 	background-color: white;
-	margin: 2em 0;
+	margin: 2em auto;
 	border: solid rgba(123, 123, 123, 0.93) 4px;
 	border-radius: 5px;
 	box-shadow: grey 5px 5px 7px 1px;
 	display: flex;
 	flex-wrap: wrap;
+	width: 335px;
+}
+
+@media all and (min-width: 768px) {
+	.list {
+		width: 672px;
+	}
+}
+
+@media all and (min-width: 1280px) {
+	.list {
+		width: 1010px;
+	}
 }
