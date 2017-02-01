@@ -1,2 +1,2 @@
 angular
-  .module('app', ['ui.router', 'ng']);
+	.module('app', ['ui.router', 'ng']);

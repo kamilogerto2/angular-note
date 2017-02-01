@@ -39,22 +39,19 @@ function NoteController(dataManger, $scope, urlDetector, $timeout) {
 	 * edit note - add new if is needed
 	 */
 	ctrl.editNote = function () {
-		//timeout is needed to correct handle edit action
-		$timeout((function() {
+		// timeout is needed to correct handle edit action
+		$timeout((function () {
 			if ((ctrl.newNote && ctrl.content)) {
 				dataManger.setNote(ctrl.content);
 				ctrl.content = null;
 				ctrl.edit = false;
 				$scope.$emit('note changed');
-			} else {
-				if (ctrl.edit) {
-					dataManger.editNote(ctrl.id, ctrl.content);
-					detectImages();
-					ctrl.edit = false;
-				}
+			} else if (ctrl.edit) {
+				dataManger.editNote(ctrl.id, ctrl.content);
+				detectImages();
+				ctrl.edit = false;
 			}
 		}), 200);
-
 	};
 
 	/**
@@ -62,7 +59,7 @@ function NoteController(dataManger, $scope, urlDetector, $timeout) {
 	 * @param $event
 	 */
 	ctrl.changeFocus = function ($event) {
-		if (!$event.srcElement.innerText == 'Save') {
+		if (!($event.srcElement.innerText === 'Save')) {
 			$scope.$emit(ctrl.id);
 		}
 	};
@@ -90,5 +87,5 @@ function NoteController(dataManger, $scope, urlDetector, $timeout) {
 	 */
 	ctrl.$onInit = function () {
 		detectImages();
-	}
+	};
 }

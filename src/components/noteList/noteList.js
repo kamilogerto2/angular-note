@@ -10,10 +10,13 @@ angular
 
 function NoteListController(dataManger, $scope) {
 	var ctrl = this;
+	// set provider to session storage
 	dataManger.configure('sessionStorageProvider');
 	ctrl.notes = dataManger.getNoteList();
-	console.log(ctrl.notes);
 
+	/**
+	 * Refresh note list when some note is changed
+	 */
 	$scope.$on('note changed', function () {
 		ctrl.notes = dataManger.getNoteList();
 	});

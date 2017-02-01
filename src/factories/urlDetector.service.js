@@ -30,9 +30,13 @@ angular.module('app').service('urlDetector', function () {
 	 * @returns {Array} images paths
 	 */
 	this.detectImagePath = function (text) {
-		var urlInText = this.detectURL(text), imageTable = [], newPath, urlPath;
+		var urlInText = this.detectURL(text);
+		var imageTable = [];
+		var newPath;
+		var urlPath;
+		var i;
 		if (urlInText) {
-			for (var i = 0; i < urlInText.length; i++) {
+			for (i = 0; i < urlInText.length; i++) {
 				if (urlPath = determineImageInURL(urlInText[i])) {
 					newPath = urlInText[i].split(urlPath[0]);
 					imageTable.push(newPath[0] + urlPath[0]);
@@ -41,5 +45,5 @@ angular.module('app').service('urlDetector', function () {
 		}
 
 		return imageTable;
-	}
+	};
 });

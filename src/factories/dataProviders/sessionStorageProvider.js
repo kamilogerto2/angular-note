@@ -38,9 +38,9 @@ angular.module('app').factory('sessionStorageProvider', function () {
 		 * clear all data
 		 */
 		clear: function () {
-			//if we know that we want to delete all data in sessionStorage
-			//in other case we should delete only notes and clear keyTable
+			// if we know that we want to delete all data in sessionStorage
+			// in other case we should delete only notes and clear keyTable
 			sessionStorage.clear();
 		}
-	}
+	};
 });

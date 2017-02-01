@@ -6,7 +6,7 @@ angular.module('app').service('dataManager', function ($injector) {
 
 	function checkProvider() {
 		if (!dataProvider) {
-			throw 'data provider is not initialized';
+			throw new Error('data provider is not initialized');
 		}
 	}
 
@@ -15,42 +15,43 @@ angular.module('app').service('dataManager', function ($injector) {
 	function getKeysTable() {
 		var rawTable = dataProvider.get(keyTableID);
 		if (rawTable) {
-			return JSON.parse(rawTable);
-		} else {
-			return false;
+			return angular.fromJson(rawTable);
 		}
+		return false;
 	}
 
 	function getNextKey() {
-		var keysTable = getKeysTable(), lastNoteKey, nextNoteKey;
+		var keysTable = getKeysTable();
+		var lastNoteKey;
+		var nextNoteKey;
 		if (keysTable) {
 			lastNoteKey = keysTable[keysTable.length - 1];
-			nextNoteKey = 'note_' + (parseInt(lastNoteKey.split('_')[1]) + 1);
+			nextNoteKey = 'note_' + (parseInt(lastNoteKey.split('_')[1], 10) + 1);
 		} else {
 			nextNoteKey = 'note_' + 0;
 		}
-
 		return nextNoteKey;
 	}
 
 	function addKeyToKeysTable(key) {
-		var keysTable = getKeysTable(), processedKeysTable = [];
-		if (!keysTable) {
-			processedKeysTable.push(key);
-			dataProvider.set(keyTableID, JSON.stringify(processedKeysTable));
-		} else {
+		var keysTable = getKeysTable();
+		var processedKeysTable = [];
+		if (keysTable) {
 			keysTable.push(key);
-			dataProvider.set(keyTableID, JSON.stringify(keysTable));
+			dataProvider.set(keyTableID, angular.toJson(keysTable));
+		} else {
+			processedKeysTable.push(key);
+			dataProvider.set(keyTableID, angular.toJson(processedKeysTable));
 		}
 	}
 
 	function removeItemFromKeysTable(key) {
 		var keysTable = getKeysTable();
-		keyIndex = keysTable.indexOf(key);
+		var keyIndex = keysTable.indexOf(key);
 		if (keyIndex > -1) {
 			keysTable.splice(keyIndex, 1);
 		}
-		dataProvider.set(keyTableID, JSON.stringify(keysTable));
+		dataProvider.set(keyTableID, angular.toJson(keysTable));
 	}
 
 	this.setNote = function (value) {
@@ -71,9 +72,8 @@ angular.module('app').service('dataManager', function ($injector) {
 			var value = dataProvider.get(key);
 			if (value) {
 				return value;
-			} else {
-				return false;
 			}
+			return false;
 		} catch (e) {
 			return false;
 		}
@@ -103,7 +103,9 @@ angular.module('app').service('dataManager', function ($injector) {
 	this.getNoteList = function () {
 		checkProvider();
 		try {
-			var keysTable = getKeysTable(), noteTable = [], actualNote;
+			var keysTable = getKeysTable();
+			var noteTable = [];
+			var actualNote;
 			for (var keyID = 0; keyID < keysTable.length; keyID++) {
 				actualNote = dataProvider.get(keysTable[keyID]);
 				noteTable.push({key: keysTable[keyID], value: actualNote});
